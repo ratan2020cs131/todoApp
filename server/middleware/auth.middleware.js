@@ -17,6 +17,7 @@ export const authMiddleware = async (req, res, next) => {
         status: 401,
         message: "user is unauthorized",
       });
+    req.user = user;
     next();
   } catch (error) {
     console.log("Auth error ---> ", error.message);
