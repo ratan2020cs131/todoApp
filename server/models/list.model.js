@@ -9,7 +9,11 @@ const listModel = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "task",
   },
+  createdBy: {
+    type: mongoose.Types.ObjectId,
+    ref: "user",
+  },
 });
 
-const List = mongo.model("list", listModel);
+const List = mongoose.model("list", listModel);
 export default List;
