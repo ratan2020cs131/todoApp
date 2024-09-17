@@ -7,6 +7,7 @@ dotenv.config({ path: "./.env" });
 
 connectMongo();
 const app = Express();
+app.use(Express.json())
 app.use(IndexRouter)
 
 const port = process.env.PORT;
