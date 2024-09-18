@@ -3,15 +3,20 @@ import { TypoRegular } from "../../components/Typography";
 import ListItem from "../../components/ListItem";
 import PlusIcon from "../../assets/PlusIcon";
 import AddListModal from "../AddListModal";
+import {
+  useListModalActions,
+  useListModalVisibility,
+} from "../../store/useModal";
 const Home = () => {
-  const [showModal, setModal] = useState(false);
+  const showModal = useListModalVisibility();
+  const setModal = useListModalActions();
   const [listId, setList] = useState("");
 
   return (
     <div className="h-full w-full flex gap-4">
       <div className="w-[16rem] flex flex-col gap-2 items-center">
         <TypoRegular>Todo Lists</TypoRegular>
-        <ListItem listId={'123'} title="heyy" onClick={(id) => setList(id)} />
+        <ListItem listId={"123"} title="heyy" onClick={(id) => setList(id)} />
         <span
           className="w-full flex gap-2 cursor-pointer items-center"
           onClick={() => setModal(true)}

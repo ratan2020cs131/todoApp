@@ -2,12 +2,19 @@ import { useState } from "react";
 import Modal from "../components/Modal";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
-
+import { useCrteateList } from "../hooks/useTodo";
+import { useListModalActions } from "../store/useModal";
 const AddListModalBody = () => {
+  const setModal = useListModalActions();
+  const { createNewList, isCreatingList, isSuccess } = useCrteateList();
   const [listName, setListName] = useState("");
   const isSubmitDisable = listName.trim() === "";
 
-  const addListhandler = () => {};
+  const addListhandler = async () => {
+    await createNewList({ listName });
+  };
+
+  if (isSuccess) setModal(false);
 
   return (
     <div className="w-[25rem] flex gap-4 items-center">
@@ -19,8 +26,8 @@ const AddListModalBody = () => {
 
       <Button
         disabled={isSubmitDisable}
-        title="Submit"
-        loading={true}
+        title="Create"
+        loading={isCreatingList}
         onClick={addListhandler}
       />
     </div>
