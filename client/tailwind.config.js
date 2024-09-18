@@ -9,6 +9,7 @@ export const colors = {
     success: "#32CD32",
     blue: "#00BFFF",
     navy: "#1E90FF",
+    coral: "#FF7F50",
   },
   secondary: {
     done: "#7FFFD4",

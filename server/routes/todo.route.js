@@ -4,7 +4,8 @@ import {
   getAllLists,
   getTasks,
   createTask,
-  updateTask
+  updateTask,
+  deleteTask
 } from "../controllers/todo.controller.js";
 const todoRoute = Router();
 
@@ -13,6 +14,7 @@ todoRoute
   .get("/list", getAllLists)
   .post("/task", createTask)
   .get("/task/:listId", getTasks)
-  .patch("/task/:taskId", updateTask);
+  .patch("/task/:taskId", updateTask)
+  .delete("/task/:taskId", deleteTask);
 
 export default todoRoute;

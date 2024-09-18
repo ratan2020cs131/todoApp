@@ -12,9 +12,11 @@ const Button = ({
   loading,
   variant = "default",
   disabled,
+  Icon,
 }) => {
   return (
     <PrimeButton
+      icon={Icon}
       className={`${baseClasses} ${
         variantClasses[disabled ? "disabled" : variant]
       }`}

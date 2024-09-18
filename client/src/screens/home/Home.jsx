@@ -12,6 +12,7 @@ import {
 import { useGetTodoLists, useGetTodoTasks } from "../../hooks/useTodo";
 import Loader from "../../components/Loader";
 import Task from "../../components/Task";
+import Button from "../../components/Button";
 
 const Home = () => {
   const showListModal = useListModalVisibility();
@@ -52,12 +53,12 @@ const Home = () => {
           <TypoRegular>Select a Todo List to view all the tasks</TypoRegular>
         ) : (
           <div className=" flex w-full items-center flex-col gap-4 overflow-y-auto">
-            <span
-              className="w-full flex gap-2 cursor-pointer items-center"
-              onClick={() => setTaskModal(true)}
-            >
-              <PlusIcon height={1} width={1} />
-              Add new Task
+            <span className="w-full flex gap-2 cursor-pointer items-center">
+              <Button
+                title="Add new task"
+                Icon={<PlusIcon />}
+                onClick={() => setTaskModal(true)}
+              />
             </span>
             {tasks.length > 0 && (
               <span className="w-full flex gap-2 cursor-pointer items-center">

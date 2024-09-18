@@ -116,3 +116,22 @@ export const updateTask = async (req, res) => {
     return sendResponse({ res, status: 500, message: "server error" });
   }
 };
+
+export const deleteTask = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const { taskId } = req.params;
+    if (!taskId || !status)
+      return sendResponse({ res, status: 400, message: "invalid parameters" });
+
+    await Task.findByIdAndDelete(taskId);
+    return sendResponse({
+      res,
+      status: 204,
+      message: "task deleted",
+    });
+  } catch (error) {
+    console.log("Erorr updating task ---> ", error.message);
+    return sendResponse({ res, status: 500, message: "server error" });
+  }
+};

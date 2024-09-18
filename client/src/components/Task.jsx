@@ -45,16 +45,19 @@ const Task = ({ sr, listId, taskId, title, status }) => {
         <IconResolver status={status} />
         <TypoRegular>{capitalize(title)}</TypoRegular>
       </span>
-      <SelectDropdown
-        onChange={(value) =>
-          updateTask({
-            status: value,
-          })
-        }
-        loading={isUpdating}
-        value={status}
-        options={taskStatusOption}
-      />
+      <span className="flex items-center gap-4">
+        <TypoRegular>Status: </TypoRegular>
+        <SelectDropdown
+          onChange={(value) =>
+            updateTask({
+              status: value,
+            })
+          }
+          loading={isUpdating}
+          value={status}
+          options={taskStatusOption}
+        />
+      </span>
     </div>
   );
 };
