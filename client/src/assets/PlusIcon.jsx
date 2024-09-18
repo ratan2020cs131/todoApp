@@ -1,4 +1,4 @@
-const PlusIcon = ({ height = 1.5, width = 1.5, fill = "#1C274C" }) => {
+const PlusIcon = ({ height = 1, width = 1, fill = "#1C274C" }) => {
   return (
     <svg
       height={`${height}rem`}
