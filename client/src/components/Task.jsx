@@ -6,6 +6,8 @@ import PlayIcon from "../assets/PlayIcon.jsx";
 import { useUpdateTask } from "../hooks/useTodo.js";
 import { capitalize } from "../utils/string.util.js";
 import PauseIcon from "../assets/PauseIcon.jsx";
+import DeleteIcon from "../assets/DeleteIcon.jsx";
+import LoaderIcon from "../assets/LoaderIcon.jsx";
 
 const baseClasses = "px-4 py-3 w-full rounded-md flex gap-4 items-center";
 const variant = {
@@ -33,7 +35,7 @@ const IconResolver = ({ status }) => {
 };
 
 const Task = ({ sr, listId, taskId, title, status }) => {
-  const { updateTask, isUpdating } = useUpdateTask({
+  const { updateTask, isUpdating, deleteTask, isDeleting } = useUpdateTask({
     listId,
     taskId,
   });
@@ -57,6 +59,9 @@ const Task = ({ sr, listId, taskId, title, status }) => {
           value={status}
           options={taskStatusOption}
         />
+      </span>
+      <span onClick={() => deleteTask()} className="cursor-pointer">
+        {isDeleting ? <LoaderIcon width={1.5} height={1.5} /> : <DeleteIcon />}
       </span>
     </div>
   );

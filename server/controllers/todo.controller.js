@@ -119,9 +119,8 @@ export const updateTask = async (req, res) => {
 
 export const deleteTask = async (req, res) => {
   try {
-    const { status } = req.body;
     const { taskId } = req.params;
-    if (!taskId || !status)
+    if (!taskId)
       return sendResponse({ res, status: 400, message: "invalid parameters" });
 
     await Task.findByIdAndDelete(taskId);
