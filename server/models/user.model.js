@@ -5,6 +5,7 @@ const userModel = new mongoose.Schema({
     type: String,
     required: true,
   },
+  otp: String,
 });
 
 const User = mongoose.model("user", userModel);
