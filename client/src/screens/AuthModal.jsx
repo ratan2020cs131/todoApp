@@ -61,6 +61,7 @@ const AuthModalBody = () => {
 };
 
 const AuthModal = () => {
+  const { otpSent } = useAuthStates();
   const authenticated = useAuth();
   const showAuthModal = useModalVisibility();
 
@@ -68,7 +69,7 @@ const AuthModal = () => {
     <Modal
       visible={showAuthModal}
       unClosable={!authenticated}
-      title="Enter your email"
+      title={otpSent ? "Enter the OTP sent to your email" : "Enter your email"}
     >
       <AuthModalBody />
     </Modal>

@@ -1,30 +1,37 @@
-import { useState } from "react";
 import { TypoRegular } from "../../components/Typography";
 import ListItem from "../../components/ListItem";
 import PlusIcon from "../../assets/PlusIcon";
 import AddListModal from "../AddListModal";
+import AddTaskModal from "../AddTaskModal";
 import {
   useListModalActions,
   useListModalVisibility,
+  useTaskModalActions,
+  useTaskModalState,
 } from "../../store/useModal";
-import { useGetTodoLists } from "../../hooks/useTodo";
+import { useGetTodoLists, useGetTodoTasks } from "../../hooks/useTodo";
 import Loader from "../../components/Loader";
-const Home = () => {
-  const { lists = [], isFetching } = useGetTodoLists();
-  const showModal = useListModalVisibility();
-  const setModal = useListModalActions();
-  const [listId, setList] = useState("");
+import Task from "../../components/Task";
 
-  console.log({ lists });
+const Home = () => {
+  const showListModal = useListModalVisibility();
+  const setListModal = useListModalActions();
+  const { show: showTaskModal, listId } = useTaskModalState();
+  const { setVisibility: setTaskModal, setListId } = useTaskModalActions();
+
+  const { lists = [], isFetching } = useGetTodoLists();
+  const { tasks = [], isFetchingTasks } = useGetTodoTasks(listId);
+
+  console.log({ tasks });
 
   return (
     <div className="h-full w-full flex gap-4">
-      <Loader loading={isFetching} />
+      <Loader loading={isFetching || isFetchingTasks} />
       <div className="w-[16rem] flex flex-col gap-2 items-center overflow-y-auto">
         <TypoRegular>Todo Lists</TypoRegular>
         <span
           className="w-full flex gap-2 cursor-pointer items-center"
-          onClick={() => setModal(true)}
+          onClick={() => setListModal(true)}
         >
           <PlusIcon height={1} width={1} />
           Add new list
@@ -34,17 +41,46 @@ const Home = () => {
             key={item._id}
             listId={item._id}
             title={item.listName}
-            onClick={(id) => setList(id)}
+            onClick={(id) => setListId(id)}
           />
         ))}
       </div>
       <div className="h-full border-r"></div>
       <div className="flex-1 items-center flex flex-col">
-        {!listId && (
+        {!listId ? (
           <TypoRegular>Select a Todo List to view all the tasks</TypoRegular>
+        ) : (
+          <div className=" flex w-full items-center flex-col gap-4 overflow-y-auto">
+            <span
+              className="w-full flex gap-2 cursor-pointer items-center"
+              onClick={() => setTaskModal(true)}
+            >
+              <PlusIcon height={1} width={1} />
+              Add new Task
+            </span>
+            {tasks.length > 0 && (
+              <span className="w-full flex gap-2 cursor-pointer items-center">
+                <TypoRegular>Total: {tasks.length}</TypoRegular>
+              </span>
+            )}
+            {tasks.map((item) => (
+              <Task key={item._id} title={item.taskName} />
+            ))}
+          </div>
         )}
       </div>
-      <AddListModal visible={showModal} onClose={() => setModal(false)} />
+      {showListModal && (
+        <AddListModal
+          visible={showListModal}
+          onClose={() => setListModal(false)}
+        />
+      )}
+      {showTaskModal && (
+        <AddTaskModal
+          visible={showTaskModal}
+          onClose={() => setTaskModal(false)}
+        />
+      )}
     </div>
   );
 };

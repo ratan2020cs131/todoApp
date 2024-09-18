@@ -19,7 +19,9 @@ const Button = ({
         variantClasses[disabled ? "disabled" : variant]
       }`}
       label={title}
-      onClick={!disabled && onClick}
+      onClick={() => {
+        if (!disabled) onClick();
+      }}
       loading={loading}
     />
   );
