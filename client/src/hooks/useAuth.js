@@ -27,7 +27,7 @@ export const useGetEmail = () => {
     onError: () => {
       setOtpSent(false);
       showNotification({
-        message: "Error verifying OTP",
+        message: "Error verifying email",
         variant: NOTIF_TYPES.failure,
       });
     },
@@ -60,7 +60,7 @@ export const useVerifyOtp = () => {
     onError: () => {
       setAuth(false);
       showNotification({
-        message: "Error sending email",
+        message: "Error verifying OTP",
         variant: NOTIF_TYPES.failure,
       });
     },
