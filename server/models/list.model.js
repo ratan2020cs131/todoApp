@@ -5,10 +5,6 @@ const listModel = new mongoose.Schema({
     type: String,
     required: true,
   },
-  tasks: {
-    type: mongoose.Types.ObjectId,
-    ref: "task",
-  },
   createdBy: {
     type: mongoose.Types.ObjectId,
     ref: "user",

@@ -7,11 +7,15 @@ const taskModel = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["active", "done"],
+    enum: ["pending", "active", "done"],
     required: true,
     default: "active",
   },
+  listId: {
+    type: mongoose.Types.ObjectId,
+    ref: "list",
+  },
 });
 
-const Task = mongo.model("task", taskModel);
+const Task = mongoose.model("task", taskModel);
 export default Task;

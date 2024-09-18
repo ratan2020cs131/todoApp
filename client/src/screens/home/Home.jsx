@@ -20,8 +20,15 @@ const Home = () => {
   return (
     <div className="h-full w-full flex gap-4">
       <Loader loading={isFetching} />
-      <div className="w-[16rem] flex flex-col gap-2 items-center">
+      <div className="w-[16rem] flex flex-col gap-2 items-center overflow-y-auto">
         <TypoRegular>Todo Lists</TypoRegular>
+        <span
+          className="w-full flex gap-2 cursor-pointer items-center"
+          onClick={() => setModal(true)}
+        >
+          <PlusIcon height={1} width={1} />
+          Add new list
+        </span>
         {lists.map((item) => (
           <ListItem
             key={item._id}
@@ -30,13 +37,6 @@ const Home = () => {
             onClick={(id) => setList(id)}
           />
         ))}
-        <span
-          className="w-full flex gap-2 cursor-pointer items-center"
-          onClick={() => setModal(true)}
-        >
-          <PlusIcon height={1} width={1} />
-          Add new list
-        </span>
       </div>
       <div className="h-full border-r"></div>
       <div className="flex-1 items-center flex flex-col">

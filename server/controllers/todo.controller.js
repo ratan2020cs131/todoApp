@@ -1,5 +1,6 @@
 import { sendResponse } from "../utils/response.util.js";
 import List from "../models/list.model.js";
+import Task from "../models/task.model.js";
 
 export const createList = async (req, res) => {
   try {
@@ -44,6 +45,47 @@ export const getAllLists = async (req, res) => {
     });
   } catch (error) {
     console.log("Error fetching lists ---> ", error.message);
+    return sendResponse({ res, status: 500, message: "server error" });
+  }
+};
+
+export const createTask = async (req, res) => {
+  try {
+    const { listId, taskName } = req.body;
+    if (!listId || !(await List.findById({ _id: listId })) || !taskName)
+      return sendResponse({ res, status: 400, message: "invalid parameters" });
+    const task = new Task({
+      taskName,
+      status: "pending",
+      listId,
+    });
+    await task.save();
+    return sendResponse({
+      res,
+      status: 201,
+      message: "tasks created",
+      data: task,
+    });
+  } catch (error) {
+    console.log("Error creating tasks ---> ", error.message);
+    return sendResponse({ res, status: 500, message: "server error" });
+  }
+};
+
+export const getTasks = async (req, res) => {
+  try {
+    const { listId } = req.params;
+    if (!listId)
+      return sendResponse({ res, status: 400, message: "invalid list Id" });
+    const tasks = await Task.find({ listId });
+    return sendResponse({
+      res,
+      status: 200,
+      message: "tasks fetched",
+      data: tasks,
+    });
+  } catch (error) {
+    console.log("Error fetching tasks ---> ", error.message);
     return sendResponse({ res, status: 500, message: "server error" });
   }
 };
