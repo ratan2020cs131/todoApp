@@ -64,7 +64,7 @@ const Home = () => {
               </span>
             )}
             {tasks.map((item) => (
-              <Task key={item._id} title={item.taskName} />
+              <Task key={item._id} title={item.taskName} status={item.status} />
             ))}
           </div>
         )}

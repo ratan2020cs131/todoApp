@@ -89,3 +89,30 @@ export const getTasks = async (req, res) => {
     return sendResponse({ res, status: 500, message: "server error" });
   }
 };
+
+export const updateTask = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const { taskId } = req.params;
+    if (!taskId || !status)
+      return sendResponse({ res, status: 400, message: "invalid parameters" });
+
+    const task = await Task.findByIdAndUpdate(
+      taskId,
+      { status },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    return sendResponse({
+      res,
+      status: 201,
+      message: "task updated",
+      data: task,
+    });
+  } catch (error) {
+    console.log("Erorr updating task ---> ", error.message);
+    return sendResponse({ res, status: 500, message: "server error" });
+  }
+};
