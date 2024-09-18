@@ -1,19 +1,21 @@
 import { Dialog } from "primereact/dialog";
-import { useModalActions, useModalVisibility } from "../store/useModal";
 import { TypoRegular } from "./Typography";
 
-const Modal = ({ unClosable, title = "Modal title", children }) => {
-  const isVisible = useModalVisibility();
-  const setVisible = useModalActions();
-
+const Modal = ({
+  visible,
+  onClose,
+  unClosable,
+  title = "Modal title",
+  children,
+}) => {
   return (
     <Dialog
       draggable={false}
       header={<TypoRegular>{title}</TypoRegular>}
-      visible={isVisible}
+      visible={visible}
       onHide={() => {
-        if (!isVisible) return;
-        if (!unClosable) setVisible(false);
+        if (!visible) return;
+        if (!unClosable) onClose();
       }}
     >
       {children}

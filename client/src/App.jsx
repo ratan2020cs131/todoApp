@@ -17,7 +17,7 @@ function App() {
 
   if (!authenticated) {
     setModalVisibility(true);
-  }else{
+  } else {
     setModalVisibility(false);
   }
 
@@ -25,7 +25,7 @@ function App() {
     <PrimeReactProvider value={{ unstyled: true, pt: DesignSystem }}>
       <QueryClientProvider client={queryClient}>
         <AppContainer>
-          <Home />
+          {authenticated && <Home />}
           <AuthModal />
           <Toaster />
         </AppContainer>

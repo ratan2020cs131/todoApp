@@ -51,6 +51,7 @@ export const useVerifyOtp = () => {
       const { data: resData } = data;
       setAuth(true);
       sessionStorage.setItem("email", resData.data.email);
+      sessionStorage.setItem("userId", resData.data._id);
       showNotification({
         message: "User verification done",
         variant: NOTIF_TYPES.success,
