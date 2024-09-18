@@ -1,5 +1,5 @@
 import AppContainer from "./components/AppContainer";
-import {useAuth} from "./hooks/useAuth";
+import { useAuth } from "./hooks/useAuth";
 import { PrimeReactProvider } from "primereact/api";
 import DesignSystem from "./designSystem";
 import { useModalActions } from "./store/useModal";
@@ -8,6 +8,7 @@ import AuthModal from "./screens/AuthModal.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./index.css";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const authenticated = useAuth();
@@ -24,6 +25,7 @@ function App() {
         <AppContainer>
           <Home />
           <AuthModal />
+          <Toaster />
         </AppContainer>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
