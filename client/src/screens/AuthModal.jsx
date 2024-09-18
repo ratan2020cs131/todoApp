@@ -4,6 +4,7 @@ import TextInput from "../components/TextInput";
 import { useAuth, useGetEmail, useVerifyOtp } from "../hooks/useAuth";
 import Button from "../components/Button";
 import { useAuthStates } from "../store/useAuth.store";
+import { useModalVisibility } from "../store/useModal";
 
 const AuthModalBody = () => {
   const { otpSent } = useAuthStates();
@@ -61,9 +62,14 @@ const AuthModalBody = () => {
 
 const AuthModal = () => {
   const authenticated = useAuth();
+  const showAuthModal = useModalVisibility();
 
   return (
-    <Modal unClosable={!authenticated} title="Enter your email">
+    <Modal
+      visible={showAuthModal}
+      unClosable={!authenticated}
+      title="Enter your email"
+    >
       <AuthModalBody />
     </Modal>
   );
