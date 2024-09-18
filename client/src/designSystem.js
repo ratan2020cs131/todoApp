@@ -1,4 +1,4 @@
-import { classNames, mask } from "primereact/utils";
+import { classNames } from "primereact/utils";
 
 const DesignSystem = {
   checkbox: {
@@ -25,7 +25,7 @@ const DesignSystem = {
   },
   inputtext: {
     root: ({ context }) => ({
-      className: classNames("rounded-lg px-4 py-2 bg-primary-gray border border-primary-dark", {
+      className: classNames("w-full rounded-lg px-4 py-2 bg-primary-gray border border-primary-dark", {
         "hover:border-blue-500 focus:outline-none focus:border-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)]":
           !context.disabled,
         "opacity-60 select-none pointer-events-none cursor-default":
@@ -38,7 +38,7 @@ const DesignSystem = {
       className: classNames(
         "rounded-lg bg-primary-white border-none shadow-lg",
         "max-h-[90%] transform scale-100",
-        "m-0 w-[50vw]",
+        "m-0",
         "dark:border dark:border-blue-900/40 p-4"
       ),
     },
@@ -52,7 +52,7 @@ const DesignSystem = {
   button: {
     root: {
       className: classNames(
-        "items-center cursor-pointer inline-flex bg-primary px-4 py-2 rounded-md"
+        "items-center gap-2 cursor-pointer inline-flex bg-primary px-4 py-2 rounded-md"
       ),
     },
   },
