@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "../components/Modal";
 import TextInput from "../components/TextInput";
 import { useAuth, useGetEmail, useVerifyOtp } from "../hooks/useAuth";
@@ -7,11 +7,20 @@ import { useAuthStates } from "../store/useAuth.store";
 import { useModalVisibility } from "../store/useModal";
 
 const AuthModalBody = () => {
+  const emailInputRef = useRef();
   const { otpSent } = useAuthStates();
   const { sendEmail, isAuthenticating } = useGetEmail();
   const { sendOtp, isVerifyingOtp } = useVerifyOtp();
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+
+  useEffect(() => {
+    if (emailInputRef && emailInputRef.current) {
+      emailInputRef?.current?.focus();
+    }
+  }, []);
+
+  console.log({ emailInputRef });
 
   const sendEmailHandler = async () => {
     await sendEmail({
@@ -45,6 +54,7 @@ const AuthModalBody = () => {
         />
       ) : (
         <TextInput
+          inputRef={emailInputRef}
           placeholder="Type your email here"
           value={email}
           onChange={(value) => setEmail(value)}

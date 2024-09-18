@@ -1,4 +1,4 @@
-import { TypoRegular } from "../../components/Typography";
+import { TypoBold, TypoRegular } from "../../components/Typography";
 import ListItem from "../../components/ListItem";
 import PlusIcon from "../../assets/PlusIcon";
 import AddListModal from "../AddListModal";
@@ -24,17 +24,12 @@ const Home = () => {
   const { lists = [], isFetching } = useGetTodoLists();
   const { tasks = [], isFetchingTasks } = useGetTodoTasks(listId);
 
-  console.log({ tasks });
-
   return (
     <div className="h-full w-full flex gap-4">
       <Loader loading={isFetching || isFetchingTasks} />
       <div className="w-[16rem] flex flex-col gap-2 items-center overflow-y-auto">
-        <TypoRegular>Todo Lists</TypoRegular>
-        <span
-          className="w-full flex gap-2 cursor-pointer items-center"
-          
-        >
+        <TypoBold>Todo Lists</TypoBold>
+        <span className="w-full flex gap-2 cursor-pointer items-center">
           <Button
             title="Add new list"
             Icon={<PlusIcon />}

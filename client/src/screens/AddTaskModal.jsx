@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "../components/Modal";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
@@ -6,11 +6,18 @@ import { useCreateTask } from "../hooks/useTodo";
 import { useTaskModalActions, useTaskModalState } from "../store/useModal";
 
 const AddTaskModalBody = () => {
+  const taskInputRef = useRef();
   const { setVisibility: setTaskModal } = useTaskModalActions();
   const { listId } = useTaskModalState();
   const { createNewTask, isCreatingTask, isSuccess } = useCreateTask(listId);
   const [taskName, setTaskName] = useState("");
   const isSubmitDisable = taskName.trim() === "";
+
+  useEffect(() => {
+    if (taskInputRef && taskInputRef.current) {
+      taskInputRef?.current?.focus();
+    }
+  }, []);
 
   const addTaskhandler = async () => {
     console.log({ listId });
@@ -24,6 +31,7 @@ const AddTaskModalBody = () => {
   return (
     <div className="w-[25rem] flex gap-4 items-center">
       <TextInput
+        inputRef={taskInputRef}
         placeholder="Enter new task"
         value={taskName}
         onChange={(value) => setTaskName(value)}

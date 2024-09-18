@@ -1,8 +1,7 @@
 import { Button as PrimeButton } from "primereact/button";
 
-const baseClasses = "hover:bg-primary-navy";
 const variantClasses = {
-  default: "bg-primary-blue",
+  default: "bg-primary-blue hover:bg-primary-navy",
   disabled: "bg-primary-gray hover:bg-primary-gray !cursor-default",
 };
 
@@ -17,9 +16,7 @@ const Button = ({
   return (
     <PrimeButton
       icon={Icon}
-      className={`${baseClasses} ${
-        variantClasses[disabled ? "disabled" : variant]
-      }`}
+      className={`${variantClasses[disabled ? "disabled" : variant]}`}
       label={title}
       onClick={() => {
         if (!disabled) onClick();

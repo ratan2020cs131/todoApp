@@ -3,9 +3,12 @@ import { TypoRegular } from "./Typography";
 import LoaderIcon from "../assets/LoaderIcon";
 import DeleteIcon from "../assets/DeleteIcon";
 import { useDeleteList } from "../hooks/useTodo";
+import { useTaskModalActions } from "../store/useModal";
 
 const ListItem = ({ sr, listId, title = "List title #1", onClick }) => {
   const { deleteList, isDeleting } = useDeleteList(listId);
+  const { setListId } = useTaskModalActions();
+
   return (
     <div
       className="px-4 w-full flex items-center cursor-pointer bg-primary-coral py-1 rounded-lg border border-primary-navy"
@@ -20,6 +23,7 @@ const ListItem = ({ sr, listId, title = "List title #1", onClick }) => {
         onClick={(e) => {
           e.stopPropagation();
           deleteList();
+          setListId("");
         }}
         className="cursor-pointer"
       >
