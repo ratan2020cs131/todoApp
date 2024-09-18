@@ -2,6 +2,8 @@ import Axios from "../utils/axios.util";
 
 export const createList = async (body) => await Axios.post("/todo", body);
 export const getAllLists = async () => await Axios.get("/list");
+export const deleteList = async (listId) =>
+  await Axios.delete(`/list/${listId}`);
 export const createTasks = async (body) => await Axios.post(`/task`, body);
 export const getTasks = async (listId) => await Axios.get(`/task/${listId}`);
 export const updateTask = async (taskId, body) =>

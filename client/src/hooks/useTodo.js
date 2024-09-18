@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createList,
   createTasks,
+  deleteList,
   deleteTask,
   getAllLists,
   getTasks,
@@ -146,6 +147,34 @@ export const useUpdateTask = ({ listId, taskId }) => {
     isSuccess,
     deleteTask: mutateDeleteAsync,
     isDeleting: isPendingDelete,
+  };
+};
+
+export const useDeleteList = (listId) => {
+  const showNotification = useAlert();
+  const queryClient = useQueryClient();
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async () => await deleteList(listId),
+    onSuccess: () => {
+      showNotification({
+        message: "List deleted",
+        variant: NOTIF_TYPES.success,
+      });
+      queryClient.invalidateQueries({
+        queryKey: [TODO_QUERY_KEYS.getList],
+      });
+    },
+    onError: () => {
+      showNotification({
+        message: "Error deleting list",
+        variant: NOTIF_TYPES.failure,
+      });
+    },
+  });
+
+  return {
+    deleteList: mutateAsync,
+    isDeleting: isPending,
   };
 };
 
