@@ -118,25 +118,26 @@ export const useUpdateTask = ({ listId, taskId }) => {
       });
     },
   });
-  
-  const { mutateAsync:mutateDeleteAsync, isPendingDelete } = useMutation({
-    mutationFn: async () => await deleteTask(taskId),
-    onSuccess: () => {
-      showNotification({
-        message: "Task deleted",
-        variant: NOTIF_TYPES.success,
-      });
-      queryClient.invalidateQueries({
-        queryKey: [TODO_QUERY_KEYS.getTasks, listId],
-      });
-    },
-    onError: () => {
-      showNotification({
-        message: "Error deleting task",
-        variant: NOTIF_TYPES.failure,
-      });
-    },
-  });
+
+  const { mutateAsync: mutateDeleteAsync, isPending: isPendingDelete } =
+    useMutation({
+      mutationFn: async () => await deleteTask(taskId),
+      onSuccess: () => {
+        showNotification({
+          message: "Task deleted",
+          variant: NOTIF_TYPES.success,
+        });
+        queryClient.invalidateQueries({
+          queryKey: [TODO_QUERY_KEYS.getTasks, listId],
+        });
+      },
+      onError: () => {
+        showNotification({
+          message: "Error deleting task",
+          variant: NOTIF_TYPES.failure,
+        });
+      },
+    });
 
   return {
     updateTask: mutateAsync,

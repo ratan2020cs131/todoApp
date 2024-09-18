@@ -13,6 +13,7 @@ import { useGetTodoLists, useGetTodoTasks } from "../../hooks/useTodo";
 import Loader from "../../components/Loader";
 import Task from "../../components/Task";
 import Button from "../../components/Button";
+import EmptyTemplate from "../../components/EmptyTemplate";
 
 const Home = () => {
   const showListModal = useListModalVisibility();
@@ -32,11 +33,21 @@ const Home = () => {
         <TypoRegular>Todo Lists</TypoRegular>
         <span
           className="w-full flex gap-2 cursor-pointer items-center"
-          onClick={() => setListModal(true)}
+          
         >
-          <PlusIcon height={1} width={1} />
-          Add new list
+          <Button
+            title="Add new list"
+            Icon={<PlusIcon />}
+            onClick={() => setListModal(true)}
+          />
         </span>
+        {lists.length > 0 ? (
+          <span className="w-full flex gap-2 cursor-pointer items-center">
+            <TypoRegular>Total: {lists.length}</TypoRegular>
+          </span>
+        ) : (
+          <EmptyTemplate message="No list created yet" />
+        )}
         {lists.map((item, index) => (
           <ListItem
             key={item._id}
@@ -60,10 +71,12 @@ const Home = () => {
                 onClick={() => setTaskModal(true)}
               />
             </span>
-            {tasks.length > 0 && (
+            {tasks.length > 0 ? (
               <span className="w-full flex gap-2 cursor-pointer items-center">
                 <TypoRegular>Total: {tasks.length}</TypoRegular>
               </span>
+            ) : (
+              <EmptyTemplate message="No task created yet" />
             )}
             {tasks.map((item, index) => (
               <Task
