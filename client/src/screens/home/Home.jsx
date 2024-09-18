@@ -36,9 +36,10 @@ const Home = () => {
           <PlusIcon height={1} width={1} />
           Add new list
         </span>
-        {lists.map((item) => (
+        {lists.map((item, index) => (
           <ListItem
             key={item._id}
+            sr={index + 1}
             listId={item._id}
             title={item.listName}
             onClick={(id) => setListId(id)}
@@ -63,8 +64,15 @@ const Home = () => {
                 <TypoRegular>Total: {tasks.length}</TypoRegular>
               </span>
             )}
-            {tasks.map((item) => (
-              <Task key={item._id} title={item.taskName} status={item.status} />
+            {tasks.map((item, index) => (
+              <Task
+                key={item._id}
+                sr={index + 1}
+                taskId={item._id}
+                listId={item.listId}
+                title={item.taskName}
+                status={item.status}
+              />
             ))}
           </div>
         )}

@@ -10,6 +10,10 @@ export const colors = {
     blue: "#00BFFF",
     navy: "#1E90FF",
   },
+  secondary: {
+    done: "#7FFFD4",
+    active: "#FFE4B5",
+  },
 };
 
 export default {

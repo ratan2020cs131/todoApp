@@ -70,21 +70,21 @@ const DesignSystem = {
     },
   },
   dropdown: {
-    root: ({ props }) => ({
+    root: {
       className: classNames(
-        "cursor-pointer inline-flex relative select-none",
+        "w-[10rem] cursor-pointer inline-flex relative select-none",
         "bg-primary-white border border-primary-dark transition-colors duration-200 ease-in-out rounded-md",
         "hover:border-blue-500 focus:outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)]"
       ),
-    }),
-    input: ({ props }) => ({
+    },
+    input: {
       className: classNames(
         "cursor-pointer block flex flex-auto overflow-hidden overflow-ellipsis whitespace-nowrap relative",
         "dark:text-white/80",
         "px-3 py-1 transition duration-200 bg-transparent rounded appearance-none font-sans text-base",
         "focus:outline-none focus:shadow-none"
       ),
-    }),
+    },
     trigger: {
       className: classNames(
         "flex items-center justify-center shrink-0",

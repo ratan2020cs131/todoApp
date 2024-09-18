@@ -4,6 +4,7 @@ import {
   createTasks,
   getAllLists,
   getTasks,
+  updateTask,
 } from "../services/todo.service";
 import { NOTIF_TYPES, useAlert } from "./useAlert";
 
@@ -67,7 +68,7 @@ export const useCreateTask = (listId) => {
     },
     onError: () => {
       showNotification({
-        message: "Error creating list",
+        message: "Error creating task",
         variant: NOTIF_TYPES.failure,
       });
     },
@@ -91,6 +92,36 @@ export const useGetTodoTasks = (listId) => {
     tasks: data,
     isFetchingTasks: isFetching,
     isError,
+  };
+};
+
+export const useUpdateTask = ({ listId, taskId }) => {
+  const showNotification = useAlert();
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, data, isPending, isSuccess } = useMutation({
+    mutationFn: async (body) => await updateTask(taskId, body),
+    onSuccess: () => {
+      showNotification({
+        message: "Task updated",
+        variant: NOTIF_TYPES.success,
+      });
+      queryClient.invalidateQueries({
+        queryKey: [TODO_QUERY_KEYS.getTasks, listId],
+      });
+    },
+    onError: () => {
+      showNotification({
+        message: "Error updating task",
+        variant: NOTIF_TYPES.failure,
+      });
+    },
+  });
+  return {
+    updateTask: mutateAsync,
+    task: data,
+    isUpdating: isPending,
+    isSuccess,
   };
 };
 
