@@ -1,3 +1,3 @@
 export const TypoRegular = ({ children }) => {
-  return <p>{children}</p>;
+  return <p className="flex item-center">{children}</p>;
 };

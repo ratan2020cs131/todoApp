@@ -10,7 +10,7 @@ import {
 import { useGetTodoLists } from "../../hooks/useTodo";
 import Loader from "../../components/Loader";
 const Home = () => {
-  const { lists=[], isFetching } = useGetTodoLists();
+  const { lists = [], isFetching } = useGetTodoLists();
   const showModal = useListModalVisibility();
   const setModal = useListModalActions();
   const [listId, setList] = useState("");
@@ -25,8 +25,8 @@ const Home = () => {
         {lists.map((item) => (
           <ListItem
             key={item._id}
-            listId={"123"}
-            title="heyy"
+            listId={item._id}
+            title={item.listName}
             onClick={(id) => setList(id)}
           />
         ))}

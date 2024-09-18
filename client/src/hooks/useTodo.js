@@ -1,9 +1,10 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createList, getAllLists } from "../services/todo.service";
 import { NOTIF_TYPES, useAlert } from "./useAlert";
 
 export const useCrteateList = () => {
   const showNotification = useAlert();
+  const queryClient = useQueryClient();
 
   const { mutateAsync, data, isPending, isSuccess } = useMutation({
     mutationFn: async (body) => await createList(body),
@@ -11,6 +12,9 @@ export const useCrteateList = () => {
       showNotification({
         message: "List created",
         variant: NOTIF_TYPES.success,
+      });
+      queryClient.invalidateQueries({
+        queryKey: [TODO_QUERY_KEYS.getList],
       });
     },
     onError: () => {
