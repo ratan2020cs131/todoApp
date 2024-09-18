@@ -49,6 +49,24 @@ export const getAllLists = async (req, res) => {
   }
 };
 
+export const deleteList = async (req, res) => {
+  try {
+    const { listId } = req.params;
+    if (!listId)
+      return sendResponse({ res, status: 400, message: "invalid parameters" });
+
+    await List.findByIdAndDelete(listId);
+    return sendResponse({
+      res,
+      status: 204,
+      message: "list deleted",
+    });
+  } catch (error) {
+    console.log("Erorr deleting list ---> ", error.message);
+    return sendResponse({ res, status: 500, message: "server error" });
+  }
+};
+
 export const createTask = async (req, res) => {
   try {
     const { listId, taskName } = req.body;
@@ -130,7 +148,7 @@ export const deleteTask = async (req, res) => {
       message: "task deleted",
     });
   } catch (error) {
-    console.log("Erorr updating task ---> ", error.message);
+    console.log("Erorr deleting task ---> ", error.message);
     return sendResponse({ res, status: 500, message: "server error" });
   }
 };
