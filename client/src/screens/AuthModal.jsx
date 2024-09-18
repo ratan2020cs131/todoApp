@@ -1,14 +1,16 @@
 import { useState } from "react";
 import Modal from "../components/Modal";
 import TextInput from "../components/TextInput";
-import { useAuth, useGetEmail } from "../hooks/useAuth";
+import { useAuth, useGetEmail, useVerifyOtp } from "../hooks/useAuth";
 import Button from "../components/Button";
 import { useAuthStates } from "../store/useAuth.store";
 
 const AuthModalBody = () => {
   const { otpSent } = useAuthStates();
   const { sendEmail, isAuthenticating } = useGetEmail();
+  const { sendOtp, isVerifyingOtp } = useVerifyOtp();
   const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
 
   const sendEmailHandler = async () => {
     await sendEmail({
@@ -16,11 +18,18 @@ const AuthModalBody = () => {
     });
   };
 
-  const otpHandler = () => {};
+  const otpHandler = async () => {
+    await sendOtp({
+      email,
+      otp,
+    });
+  };
 
   const isSubmitDisable = (() => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return !emailRegex.test(email) || email.trim() === "";
+    return otpSent
+      ? otp.trim().length !== 6
+      : !emailRegex.test(email) || email.trim() === "";
   })();
 
   return (
@@ -30,8 +39,8 @@ const AuthModalBody = () => {
           maxLength={6}
           type="number"
           placeholder="Enter the otp sent to your mail"
-          value={email}
-          onChange={(value) => setEmail(value)}
+          value={otp}
+          onChange={(value) => setOtp(value)}
         />
       ) : (
         <TextInput
@@ -43,7 +52,7 @@ const AuthModalBody = () => {
       <Button
         disabled={isSubmitDisable}
         title="Submit"
-        loading={isAuthenticating}
+        loading={isAuthenticating || isVerifyingOtp}
         onClick={otpSent ? otpHandler : sendEmailHandler}
       />
     </div>

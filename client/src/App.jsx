@@ -17,6 +17,8 @@ function App() {
 
   if (!authenticated) {
     setModalVisibility(true);
+  }else{
+    setModalVisibility(false);
   }
 
   return (
