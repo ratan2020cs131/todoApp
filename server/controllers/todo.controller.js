@@ -30,3 +30,20 @@ export const createList = async (req, res) => {
     return sendResponse({ res, status: 500, message: "server error" });
   }
 };
+
+export const getAllLists = async (req, res) => {
+  try {
+    const lists = await List.find({ createdBy: req.user._id }).populate(
+      "createdBy"
+    );
+    return sendResponse({
+      res,
+      status: 200,
+      message: "lists fetched",
+      data: lists,
+    });
+  } catch (error) {
+    console.log("Error fetching lists ---> ", error.message);
+    return sendResponse({ res, status: 500, message: "server error" });
+  }
+};

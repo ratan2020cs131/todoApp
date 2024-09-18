@@ -7,16 +7,29 @@ import {
   useListModalActions,
   useListModalVisibility,
 } from "../../store/useModal";
+import { useGetTodoLists } from "../../hooks/useTodo";
+import Loader from "../../components/Loader";
 const Home = () => {
+  const { lists=[], isFetching } = useGetTodoLists();
   const showModal = useListModalVisibility();
   const setModal = useListModalActions();
   const [listId, setList] = useState("");
 
+  console.log({ lists });
+
   return (
     <div className="h-full w-full flex gap-4">
+      <Loader loading={isFetching} />
       <div className="w-[16rem] flex flex-col gap-2 items-center">
         <TypoRegular>Todo Lists</TypoRegular>
-        <ListItem listId={"123"} title="heyy" onClick={(id) => setList(id)} />
+        {lists.map((item) => (
+          <ListItem
+            key={item._id}
+            listId={"123"}
+            title="heyy"
+            onClick={(id) => setList(id)}
+          />
+        ))}
         <span
           className="w-full flex gap-2 cursor-pointer items-center"
           onClick={() => setModal(true)}
