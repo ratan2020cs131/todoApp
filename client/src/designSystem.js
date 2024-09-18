@@ -25,8 +25,8 @@ const DesignSystem = {
   },
   inputtext: {
     root: ({ context }) => ({
-      className: classNames("rounded-lg px-4 py-2 bg-primary-gray", {
-        "hover:border-blue-500 focus:outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)]":
+      className: classNames("rounded-lg px-4 py-2 bg-primary-gray border border-primary-dark", {
+        "hover:border-blue-500 focus:outline-none focus:border-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)]":
           !context.disabled,
         "opacity-60 select-none pointer-events-none cursor-default":
           context.disabled,
@@ -45,9 +45,16 @@ const DesignSystem = {
     header: {
       className: classNames("flex items-center justify-between shrink-0 pb-4"),
     },
-    mask:{
-      className:"bg-[rgb(0,0,0,0.7)]"
-    }
+    mask: {
+      className: "bg-[rgb(0,0,0,0.7)]",
+    },
+  },
+  button: {
+    root: {
+      className: classNames(
+        "items-center cursor-pointer inline-flex bg-primary px-4 py-2 rounded-md"
+      ),
+    },
   },
 };
 

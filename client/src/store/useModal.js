@@ -8,4 +8,7 @@ const useModal = create((set) => ({
 }));
 
 export const useModalActions = () => useModal.getState().setVisibility;
-export const modalVisibility = useModal.getState().show;
+export const useModalVisibility = () => {
+  const show = useModal((state) => state.show);
+  return show;
+};

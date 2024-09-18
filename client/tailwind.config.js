@@ -5,7 +5,10 @@ export const colors = {
     white: "#F8F8FF",
     black: "#202020",
     gray: "#DCDCDC",
+    dark: "#2F4F4F",
     success: "#32CD32",
+    blue: "#00BFFF",
+    navy: "#1E90FF",
   },
 };
 
