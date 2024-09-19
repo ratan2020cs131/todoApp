@@ -47,6 +47,7 @@ const Home = () => {
           <ListItem
             key={item._id}
             sr={index + 1}
+            selected={listId===item._id}
             listId={item._id}
             title={item.listName}
             onClick={(id) => setListId(id)}
