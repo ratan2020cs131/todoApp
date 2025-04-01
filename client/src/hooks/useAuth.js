@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { postEmail, verifyOtp } from "../services/auth.service";
+import { postEmail, verifyOtp, authInsta } from "../services/auth.service";
 import { useAuthActions, useAuthStates } from "../store/useAuth.store";
 import { NOTIF_TYPES, useAlert } from "./useAlert";
 
@@ -8,6 +8,37 @@ export const useAuth = () => {
   const email = sessionStorage.getItem("email");
   if (email || authenticated) return true;
   return false;
+};
+
+export const useAuthInsta = () => {
+  const { setOtpSent } = useAuthActions();
+  const showNotification = useAlert();
+
+  const { mutateAsync, data, isPending, isSuccess } = useMutation({
+    mutationFn: async (body) => await authInsta(body),
+    onSuccess: (data) => {
+      console.log({ data });
+      setOtpSent(true);
+      showNotification({
+        message: "Login successful",
+        variant: NOTIF_TYPES.success,
+      });
+    },
+    onError: () => {
+      setOtpSent(false);
+      showNotification({
+        message: "Error verifying email",
+        variant: NOTIF_TYPES.failure,
+      });
+    },
+  });
+
+  return {
+    sendEmail: mutateAsync,
+    authData: data,
+    isAuthenticating: isPending,
+    isSuccess,
+  };
 };
 
 export const useGetEmail = () => {

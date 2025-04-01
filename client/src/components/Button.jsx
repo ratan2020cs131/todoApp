@@ -12,11 +12,14 @@ const Button = ({
   variant = "default",
   disabled,
   Icon,
+  className = "",
 }) => {
   return (
     <PrimeButton
       icon={Icon}
-      className={`${variantClasses[disabled ? "disabled" : variant]}`}
+      className={`${
+        variantClasses[disabled ? "disabled" : variant]
+      } ${className}`}
       label={title}
       onClick={() => {
         if (!disabled) onClick();

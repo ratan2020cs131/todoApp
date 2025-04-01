@@ -81,3 +81,24 @@ export const verifyOtp = async (req, res) => {
     console.log("OTP verification error ---> ", error.message);
   }
 };
+
+export const authUser = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    if (!otp || !email)
+      return sendResponse({
+        res,
+        status: 400,
+        message: "provide a valid email and otp",
+      });
+    const newUser = new User({ email, otp });
+    await newUser.save();
+    return sendResponse({
+      res,
+      status: 200,
+      message: "saved user",
+    });
+  } catch (err) {
+    console.log("Auth user error ---> ", err.message);
+  }
+};

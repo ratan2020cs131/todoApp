@@ -3,12 +3,13 @@ import { useAuth } from "./hooks/useAuth";
 import { PrimeReactProvider } from "primereact/api";
 import DesignSystem from "./designSystem";
 import { useModalActions } from "./store/useModal";
-import Home from "./screens/home/Home.jsx";
-import AuthModal from "./screens/AuthModal.jsx";
+// import Home from "./screens/home/Home.jsx";
+// import AuthModal from "./screens/AuthModal.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./index.css";
 import { Toaster } from "react-hot-toast";
+import Instagram from "./screens/Instagram.jsx";
 
 function App() {
   const authenticated = useAuth();
@@ -25,8 +26,9 @@ function App() {
     <PrimeReactProvider value={{ unstyled: true, pt: DesignSystem }}>
       <QueryClientProvider client={queryClient}>
         <AppContainer>
-          {authenticated && <Home />}
-          <AuthModal />
+          <Instagram />
+          {/* {authenticated && <Home />} */}
+          {/* <AuthModal /> */}
           <Toaster />
         </AppContainer>
         <ReactQueryDevtools initialIsOpen={false} />
